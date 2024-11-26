@@ -33,46 +33,11 @@ def get_llm_response():
         "content": [
           {
             "type": "text",
-            "text": "It's your day one! enjoy!"
+            "text": "It's your day one! the world is all yours! enjoy!"
           },
           {
             "type": "text",
-            "text": "\n"
-          },
-          {
-            "type": "text",
-            "text": "context: day one"
-          }
-        ]
-      },
-      {
-        "role": "assistant",
-        "content": [
-          {
-            "type": "text",
-            "text": "json\n{\n  \"output\": \"Today, we are launching a global initiative called 'Eco-Education for All,' aimed at integrating environmental education into the primary and secondary school curriculums worldwide. This decision is rooted in the belief that educating the younger generation about environmental issues and sustainable practices is crucial for fostering a more environmentally conscious society. By equipping students with knowledge and skills to address climate challenges, we anticipate a long-term impact of nurturing a generation that prioritizes sustainability and innovation in solving environmental problems.\",\n  \"prompt\": \"Monitor the initial implementation of the Eco-Education initiative, gathering feedback from educators and students to assess its reception and effectiveness. Identify potential challenges in resource allocation or curriculum integration and explore partnerships with educational and environmental organizations to strengthen the program.\",\n  \"context\": \"This is the first step in a broader strategy to combat environmental challenges through education and awareness. The world is recognizing the importance of sustainability, and this initiative aims to lay the foundation for future policies and innovations by cultivating informed and responsible citizens from a young age.\"\n}"
-          }
-        ]
-      },
-      {
-        "role": "user",
-        "content": [
-          {
-            "type": "text",
-            "text": "\"Monitor the initial implementation of the Eco-Education initiative, gathering feedback from educators and students to assess its reception and effectiveness. Identify potential challenges in resource allocation or curriculum integration and explore partnerships with educational and environmental organizations to strengthen the program.\","
-          },
-          {
-            "type": "text",
-            "text": "\"context\": \"This is the first step in a broader strategy to combat environmental challenges through education and awareness. The world is recognizing the importance of sustainability, and this initiative aims to lay the foundation for future policies and innovations by cultivating informed and responsible citizens from a young age.\""
-          }
-        ]
-      },
-      {
-        "role": "assistant",
-        "content": [
-          {
-            "type": "text",
-            "text": "json\n{\n  \"output\": \"Today, we are establishing a global fund to support the Eco-Education for All initiative, ensuring that schools in under-resourced areas have access to the necessary materials and training to effectively implement the new curriculum. This decision is driven by the need to create equitable opportunities for all students to benefit from environmental education, regardless of their geographical or economic circumstances. We expect this fund to facilitate the smooth integration of the curriculum and address any disparities, ultimately contributing to a more uniform global understanding of sustainability.\",\n  \"prompt\": \"Assess the distribution and utilization of the global fund, ensuring that it reaches the intended schools and communities efficiently. Gather insights on how the funded resources are impacting curriculum delivery and student engagement. Consider expanding the fund or adjusting its focus based on the needs and challenges identified in different regions.\",\n  \"context\": \"The Eco-Education initiative is gaining traction, with early feedback highlighting both enthusiasm and challenges in various areas. Ensuring equitable access to resources remains crucial as we aim to build a strong foundation for global sustainability education. This step is part of a continuous effort to support and enhance educational reforms that address environmental issues.\"\n}"
+            "text": "context: First day of AI governing the human world"
           }
         ]
       }
