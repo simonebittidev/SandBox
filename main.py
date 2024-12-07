@@ -7,7 +7,7 @@ app = Flask(__name__)
 def get_string():
     # Return a simple JSON response
     return get_llm_response()
-    #return jsonify({"message": "Hello, this is a string from the backend!"})
+    #return jsonify({"output": "Hello, this is a string from the backend!"})
 
 @app.route('/')
 def home():
