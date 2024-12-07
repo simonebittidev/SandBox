@@ -1,5 +1,9 @@
 # SandBox
 
-![TV](https://raw.githubusercontent.com/abozaralizadeh/SandBox/refs/heads/main/static/DALL%C2%B7E%202024-10-20%2022.53.24%20-%20A%20close-up%20view%20of%20a%20large%20vintage%20television%20set%20without%20antennas%2C%20centered%20and%20facing%20directly%20toward%20the%20camera%20in%20the%20middle%20of%20a%20barren%20desert%20la.webp?token=GHSAT0AAAAAACSSY3T7I6HLPKQ3GBGINGBMZ2FBCUA)
+This experimental project explores the potential of AI as an autonomous decision-maker for a virtual world. Using Azure OpenAI and a structured prompt-response loop, the system generates daily high-level decisions on critical areas such as economy, society, environment, and global politics. Each decision is designed to be realistic, impactful, and ethically informed, balancing immediate outcomes with long-term sustainability. The goal is to create an engaging and evolving narrative that demonstrates the capabilities of generative AI while inviting users to reflect on governance and the complexities of decision-making in a simulated world.
+
+I invite you to explore the very simple interface at https://genbox.azurewebsites.net/, where you can witness the AI’s daily decisions and follow the evolving narrative of this virtual world.
+
+![TV](https://github.com/abozaralizadeh/SandBox/blob/main/static/sample.png?raw=true)
 
 gunicorn --bind=0.0.0.0 --timeout 600 main:app
