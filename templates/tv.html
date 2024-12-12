@@ -79,13 +79,7 @@
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
-          return response.json();
-        })
-        .then(data => {
-          if (data && data.output) {
-            return data.output; // Resolve the promise with the fetched string
-          }
-          throw new Error('Unexpected response format');
+          return response.text();
         })
         .catch(error => {
           console.error('Error fetching the string:', error);

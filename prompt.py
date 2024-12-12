@@ -54,7 +54,7 @@ def get_llm_response():
   if todays_row:
       print("todays row already exists")
       response = json.loads(todays_row["content"])
-      return response
+      return f"{response["output"]}\n\n{get_readable_date()}"
 
   last_n_rows = get_last_n_rows(10)
   last_n_prompts = [
@@ -95,4 +95,5 @@ def get_llm_response():
       role = response.json()["choices"][0]["message"]["role"]
 
       insert_history(role, content)
-      return str(content)
+      response = json.loads(content)
+      return f"{response["output"]}\n\n{get_readable_date()}"
