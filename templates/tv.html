@@ -53,6 +53,20 @@
       white-space: pre-line;
     }
 
+    #button {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background-color: transparent;
+      background-image: url('static/b1.png');
+      background-size: cover;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-top: -150px;
+      margin-left: 790px;
+    }
+
     @keyframes scroll {
       from {
         transform: translateY(240%);
@@ -71,6 +85,7 @@
     <div id="screen">
       <p id="content"></p>
     </div>
+    <button id="button"></button>
   </div>
 
   <script>
@@ -105,6 +120,17 @@
       // Wrap server text in a scrolling div
       contentDiv.innerHTML = `<div id="scrollingText">${serverText}</div>`;
     }
+
+    const button = document.getElementById('button');
+    let rotationAngle = 0; // Track rotation
+    button.addEventListener('click', () => {
+      // Play sound
+      const audio = new Audio('static/click.mp3'); // Update path to your sound file
+      audio.play();
+      // Rotate button
+      rotationAngle += 45;
+      button.style.transform = `rotate(${rotationAngle}deg)`;
+    });
 
     // Initial text display when the page loads
     displayServerText();
