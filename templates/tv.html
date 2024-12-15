@@ -91,7 +91,31 @@
       margin-left: 785px;
     }
 
+    #button4 {
+      position: absolute;
+      width: 125px;
+      height: 125px;
+      background-color: transparent;
+      background-image: url('static/b4.png');
+      background-size: cover;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-top: 600px;
+      margin-left: 780px;
+    }
+
     @keyframes scroll {
+      from {
+        transform: translateY(150%);
+      }
+
+      to {
+        transform: translateY(-110%);
+      }
+    }
+
+    @keyframes scrollNone {
       from {
         transform: translateY(150%);
       }
@@ -122,6 +146,7 @@
     <button id="button1"></button>
     <button id="button2"></button>
     <button id="button3"></button>
+    <button id="button4"></button>
   </div>
 
   <script>
@@ -152,8 +177,17 @@
 
     async function displayServerText(date = null) {
       const contentDiv = document.getElementById('content');
+      let scrollingText = document.getElementById('scrollingText');
+
+      if (!scrollingText) {
+        // Create #scrollingText only if it doesn't exist
+        scrollingText = document.createElement('div');
+        scrollingText.id = 'scrollingText';
+        contentDiv.appendChild(scrollingText);
+      }
+
       const serverText = await fetchServerText(date);
-      contentDiv.innerHTML = `<div id="scrollingText">${serverText}</div>`;
+      scrollingText.textContent = serverText; // Only update the text content
     }
 
     const button1 = document.getElementById('button1');
@@ -197,7 +231,7 @@
 
       if (clickCount3 % 2 === 1) {
         // Stop scrolling animation
-        scrollingText.style.animation = 'scrollRev 60s linear infinite';
+        scrollingText.style.animation = 'scrollNone 60s linear infinite';
         scrollingText.style.animationDelay = '-30s';
         scrollingText.style.animationPlayState = 'paused';
       } else {
@@ -213,6 +247,27 @@
         }
         scrollingText.style.animationPlayState = 'running';
       }
+    });
+
+    const button4 = document.getElementById('button4');
+    let rotationAngle4 = 0;
+    button4.addEventListener('click', () => {
+      const audio = new Audio('static/click4.mp3');
+      audio.play();
+      rotationAngle4 -= 90;
+      button4.style.transform = `rotate(${rotationAngle4}deg)`;
+
+      clickCount3++;
+
+      const scrollingText = document.getElementById('scrollingText');
+
+      if (clickCount3 % 2 === 1) {
+        // Pause scrolling animation
+        scrollingText.style.animationPlayState = 'paused';
+      } else {
+        scrollingText.style.animationPlayState = 'running';
+      }
+
     });
 
     displayServerText();

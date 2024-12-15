@@ -57,6 +57,9 @@ def get_llm_response(date=None):
           print("date row exists")
           response = json.loads(date_row["content"])
           return f"{response['output']}\n\n{get_readable_date(date)}"
+      elif get_flat_date(date) != get_flat_date():
+          return f"\n\n\n{get_readable_date(date)}"
+          
 
   todays_row = get_row("assistant", get_flat_date())
 
