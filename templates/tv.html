@@ -81,6 +81,20 @@
       margin-left: 790px;
     }
 
+    #button3 {
+      position: absolute;
+      width: 125px;
+      height: 125px;
+      background-color: transparent;
+      background-image: url('static/b3.png');
+      background-size: cover;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-top: 355px;
+      margin-left: 785px;
+    }
+
     @keyframes scroll {
       from {
         transform: translateY(150%);
@@ -101,11 +115,15 @@
     </div>
     <button id="button1"></button>
     <button id="button2"></button>
+    <button id="button3"></button>
   </div>
 
   <script>
-    function getContent() {
-      return fetch('/get-string')
+    let currentDate = new Date(); // Track the current date
+
+    function getContent(date = null) {
+      const url = date ? `/get-string?date=${date.toISOString()}` : '/get-string';
+      return fetch(url)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -119,24 +137,24 @@
     }
 
     // Function to simulate fetching data from server
-    function fetchServerText() {
+    function fetchServerText(date = null) {
       return new Promise((resolve) => {
         setTimeout(() => {
-          getContent().then(commandLineText => resolve(commandLineText));
+          getContent(date).then(commandLineText => resolve(commandLineText));
         }, 1000); // Simulates delay
       });
     }
 
     // Fetch the command-line text and display it
-    async function displayServerText() {
+    async function displayServerText(date = null) {
       const contentDiv = document.getElementById('content');
-      const serverText = await fetchServerText();
+      const serverText = await fetchServerText(date);
 
       // Wrap server text in a scrolling div
       contentDiv.innerHTML = `<div id="scrollingText">${serverText}</div>`;
     }
 
-    const b1 = document.getElementById('button1');
+    const button1 = document.getElementById('button1');
     let rotationAngle1 = 0; // Track rotation
     button1.addEventListener('click', () => {
       // Play sound
@@ -145,9 +163,13 @@
       // Rotate button
       rotationAngle1 += 45;
       button1.style.transform = `rotate(${rotationAngle1}deg)`;
+
+      // Adjust the date backward and fetch updated content
+      currentDate.setDate(currentDate.getDate() - 1);
+      displayServerText(currentDate);
     });
 
-    const b2 = document.getElementById('button2');
+    const button2 = document.getElementById('button2');
     let rotationAngle2 = 0; // Track rotation
     button2.addEventListener('click', () => {
       // Play sound
@@ -156,6 +178,24 @@
       // Rotate button
       rotationAngle2 -= 45;
       button2.style.transform = `rotate(${rotationAngle2}deg)`;
+
+      // Adjust the date forward and fetch updated content
+      currentDate.setDate(currentDate.getDate() + 1);
+      displayServerText(currentDate);
+    });
+
+    const button3 = document.getElementById('button3');
+    let rotationAngle3 = 0; // Track rotation
+    button3.addEventListener('click', () => {
+      // Play sound
+      const audio = new Audio('static/click3.mp3'); // Update path to your sound file
+      audio.play();
+      // Rotate button
+      rotationAngle3 += 90;
+      button3.style.transform = `rotate(${rotationAngle3}deg)`;
+
+      // Adjust the date forward and fetch updated content
+      
     });
 
     // Initial text display when the page loads

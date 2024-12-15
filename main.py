@@ -15,8 +15,9 @@ def get_string():
             # Parse the date parameter to a Python datetime object
             from datetime import datetime
             parsed_date = datetime.fromisoformat(date_param)
-            if cache.get(date_param, False):
-                return cache[date_param]
+            parsed_date = parsed_date.date()
+            if cache.get(str(parsed_date), False):
+                return cache[str(parsed_date)]
         except ValueError:
             return jsonify({"error": "Invalid date format. Use ISO 8601 format, e.g., YYYY-MM-DDTHH:MM:SS"}), 400
     else:
@@ -26,7 +27,7 @@ def get_string():
     response = get_llm_response(date=parsed_date)
 
     if parsed_date:
-        cache[date_param] = response
+        cache[str(parsed_date)] = response
 
     return response
     #return jsonify({"output": "Hello, this is a string from the backend!"})
