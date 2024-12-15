@@ -8,7 +8,8 @@ load_dotenv()
 # Configuration
 API_KEY = os.getenv('API_KEY')
 
-def get_llm_response():
+def get_llm_response(date=None):
+
   headers = {
       "Content-Type": "application/json",
       "api-key": API_KEY,
@@ -48,6 +49,14 @@ def get_llm_response():
   }
 
   ENDPOINT = "https://pocs-openai-abozar.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
+
+
+  if date:
+      date_row = get_row("assistant", get_flat_date(date))
+      if date_row:
+          print("date row exists")
+          response = json.loads(date_row["content"])
+          return f"{response['output']}\n\n{get_readable_date(date)}"
 
   todays_row = get_row("assistant", get_flat_date())
 

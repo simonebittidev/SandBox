@@ -49,11 +49,11 @@
     /* Modern CSS scrolling text */
     #scrollingText {
       display: inline-block;
-      animation: scroll 30s linear infinite;
+      animation: scroll 60s linear infinite;
       white-space: pre-line;
     }
 
-    #button {
+    #button1 {
       position: absolute;
       width: 140px;
       height: 140px;
@@ -67,9 +67,23 @@
       margin-left: 790px;
     }
 
+    #button2 {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: transparent;
+      background-image: url('static/b2.png');
+      background-size: cover;
+      background-position: center;
+      border: none;
+      cursor: pointer;
+      margin-top: 105px;
+      margin-left: 790px;
+    }
+
     @keyframes scroll {
       from {
-        transform: translateY(240%);
+        transform: translateY(150%);
       }
 
       to {
@@ -85,7 +99,8 @@
     <div id="screen">
       <p id="content"></p>
     </div>
-    <button id="button"></button>
+    <button id="button1"></button>
+    <button id="button2"></button>
   </div>
 
   <script>
@@ -121,15 +136,26 @@
       contentDiv.innerHTML = `<div id="scrollingText">${serverText}</div>`;
     }
 
-    const button = document.getElementById('button');
-    let rotationAngle = 0; // Track rotation
-    button.addEventListener('click', () => {
+    const b1 = document.getElementById('button1');
+    let rotationAngle1 = 0; // Track rotation
+    button1.addEventListener('click', () => {
       // Play sound
       const audio = new Audio('static/click.mp3'); // Update path to your sound file
       audio.play();
       // Rotate button
-      rotationAngle += 45;
-      button.style.transform = `rotate(${rotationAngle}deg)`;
+      rotationAngle1 += 45;
+      button1.style.transform = `rotate(${rotationAngle1}deg)`;
+    });
+
+    const b2 = document.getElementById('button2');
+    let rotationAngle2 = 0; // Track rotation
+    button2.addEventListener('click', () => {
+      // Play sound
+      const audio = new Audio('static/click2.mp3'); // Update path to your sound file
+      audio.play();
+      // Rotate button
+      rotationAngle2 -= 45;
+      button2.style.transform = `rotate(${rotationAngle2}deg)`;
     });
 
     // Initial text display when the page loads
