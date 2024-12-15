@@ -3,13 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
   <title>GenBox</title>
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <style>
     body {
       background-color: #e0ac69;
-      /* A desert-like color for background */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,7 +17,6 @@
 
     #tv {
       background-image: url('static/tv.webp');
-      /* Update this path to the TV image */
       background-size: cover;
       background-position: center;
       width: 1980px;
@@ -46,7 +43,6 @@
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
     }
 
-    /* Modern CSS scrolling text */
     #scrollingText {
       display: inline-block;
       animation: scroll 60s linear infinite;
@@ -104,6 +100,16 @@
         transform: translateY(-110%);
       }
     }
+
+    @keyframes scrollRev {
+      from {
+        transform: translateY(-110%);
+      }
+
+      to {
+        transform: translateY(150%);
+      }
+    }
   </style>
 </head>
 
@@ -119,7 +125,7 @@
   </div>
 
   <script>
-    let currentDate = new Date(); // Track the current date
+    let currentDate = new Date();
 
     function getContent(date = null) {
       const url = date ? `/get-string?date=${date.toISOString()}` : '/get-string';
@@ -132,73 +138,83 @@
         })
         .catch(error => {
           console.error('Error fetching the string:', error);
-          return 'Error fetching content'; // Return an error message instead
+          return 'Error fetching content';
         });
     }
 
-    // Function to simulate fetching data from server
     function fetchServerText(date = null) {
       return new Promise((resolve) => {
         setTimeout(() => {
           getContent(date).then(commandLineText => resolve(commandLineText));
-        }, 1000); // Simulates delay
+        }, 1000);
       });
     }
 
-    // Fetch the command-line text and display it
     async function displayServerText(date = null) {
       const contentDiv = document.getElementById('content');
       const serverText = await fetchServerText(date);
-
-      // Wrap server text in a scrolling div
       contentDiv.innerHTML = `<div id="scrollingText">${serverText}</div>`;
     }
 
     const button1 = document.getElementById('button1');
-    let rotationAngle1 = 0; // Track rotation
+    let rotationAngle1 = 0;
     button1.addEventListener('click', () => {
-      // Play sound
-      const audio = new Audio('static/click.mp3'); // Update path to your sound file
+      const audio = new Audio('static/click.mp3');
       audio.play();
-      // Rotate button
       rotationAngle1 += 45;
       button1.style.transform = `rotate(${rotationAngle1}deg)`;
 
-      // Adjust the date backward and fetch updated content
       currentDate.setDate(currentDate.getDate() - 1);
       displayServerText(currentDate);
     });
 
     const button2 = document.getElementById('button2');
-    let rotationAngle2 = 0; // Track rotation
+    let rotationAngle2 = 0;
     button2.addEventListener('click', () => {
-      // Play sound
-      const audio = new Audio('static/click2.mp3'); // Update path to your sound file
+      const audio = new Audio('static/click2.mp3');
       audio.play();
-      // Rotate button
       rotationAngle2 -= 45;
       button2.style.transform = `rotate(${rotationAngle2}deg)`;
 
-      // Adjust the date forward and fetch updated content
       currentDate.setDate(currentDate.getDate() + 1);
       displayServerText(currentDate);
     });
 
     const button3 = document.getElementById('button3');
-    let rotationAngle3 = 0; // Track rotation
+    let rotationAngle3 = 0;
+    let clickCount3 = 0;
+    let clickCount3_b = 0;
+
     button3.addEventListener('click', () => {
-      // Play sound
-      const audio = new Audio('static/click3.mp3'); // Update path to your sound file
+      const audio = new Audio('static/click3.mp3');
       audio.play();
-      // Rotate button
       rotationAngle3 += 90;
       button3.style.transform = `rotate(${rotationAngle3}deg)`;
 
-      // Adjust the date forward and fetch updated content
-      
+      clickCount3++;
+
+      const scrollingText = document.getElementById('scrollingText');
+
+      if (clickCount3 % 2 === 1) {
+        // Stop scrolling animation
+        scrollingText.style.animation = 'scrollRev 60s linear infinite';
+        scrollingText.style.animationDelay = '-30s';
+        scrollingText.style.animationPlayState = 'paused';
+      } else {
+        clickCount3_b++;
+        if (clickCount3_b % 2 === 1) {
+          // Change to a faster scroll animation
+          scrollingText.style.animation = 'scrollRev 60s linear infinite';
+          scrollingText.style.animationDelay = '-30s'; // Start midway
+        } else {
+          // Change to a faster scroll animation
+          scrollingText.style.animation = 'scroll 60s linear infinite';
+          scrollingText.style.animationDelay = '-30s'; // Start midway
+        }
+        scrollingText.style.animationPlayState = 'running';
+      }
     });
 
-    // Initial text display when the page loads
     displayServerText();
   </script>
 
