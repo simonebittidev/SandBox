@@ -3,24 +3,42 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="license" content="MIT License">
+  <meta name="copyright" content="Copyright (c) 2024 Abozar Alizadeh">
+  <meta name="author" content="Abozar Alizadeh">
+  <meta name="description" content="Software using the MIT License.">
   <title>GenBox</title>
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <style>
+    .custom-link {
+      color: inherit;
+      text-decoration: none;
+      font-weight: bold; 
+      font-style: italic;
+      font-family: inherit;
+    }
+
+    .custom-link:hover {
+      
+      text-decoration: underline;
+    }
+
     body {
-      background-color: #e0ac69;
+      background-color: #000000;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      width: 100vw;
       margin: 0;
     }
 
     #tv {
-      background-image: url('static/tv.webp');
+      background-image: url('static/sandboxtv.webp');
       background-size: cover;
       background-position: center;
-      width: 1980px;
-      height: 1720px;
+      width: 3200px;
+      height: 3252px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -28,19 +46,27 @@
     }
 
     #screen {
-      width: 550px;
-      height: 400px;
+      width: 450px;
+      height: 331px;
       background-color: rgba(0, 0, 0, 0);
       color: #00ff00;
       font-family: monospace;
       padding: 10px;
       overflow: hidden;
       position: static;
-      margin-top: 200px;
-      margin-left: -40px;
+      margin-top: -12px;
+      margin-left: -113px;
       border-radius: 75px;
       overflow-y: scroll;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+
+      /* Fading edges */
+      -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-size: cover;
+      mask-size: cover;
+      -webkit-mask-composite: destination-in;
+      mask-composite: intersect;
     }
 
     #scrollingText {
@@ -53,61 +79,65 @@
       position: absolute;
       width: 140px;
       height: 140px;
+      scale: 80%;
       background-color: transparent;
       background-image: url('static/b1.png');
       background-size: cover;
       background-position: center;
       border: none;
       cursor: pointer;
-      margin-top: -150px;
-      margin-left: 790px;
+      margin-top: -310px;
+      margin-left: 585px;
     }
 
     #button2 {
       position: absolute;
       width: 120px;
       height: 120px;
+      scale: 85%;
       background-color: transparent;
       background-image: url('static/b2.png');
       background-size: cover;
       background-position: center;
       border: none;
       cursor: pointer;
-      margin-top: 105px;
-      margin-left: 790px;
+      margin-top: -90px;
+      margin-left: 580px;
     }
 
     #button3 {
       position: absolute;
       width: 125px;
       height: 125px;
+      scale: 85%;
       background-color: transparent;
       background-image: url('static/b3.png');
       background-size: cover;
       background-position: center;
       border: none;
       cursor: pointer;
-      margin-top: 355px;
-      margin-left: 785px;
+      margin-top: 125px;
+      margin-left: 580px;
     }
 
     #button4 {
       position: absolute;
       width: 125px;
       height: 125px;
+      scale: 80%;
       background-color: transparent;
       background-image: url('static/b4.png');
       background-size: cover;
       background-position: center;
       border: none;
       cursor: pointer;
-      margin-top: 600px;
-      margin-left: 780px;
+      margin-top: 325px;
+      margin-left: 570px;
     }
 
     @keyframes scroll {
       from {
-        transform: translateY(150%);
+        transform: translateY(130%);
       }
 
       to {
@@ -117,7 +147,7 @@
 
     @keyframes scrollNone {
       from {
-        transform: translateY(150%);
+        transform: translateY(130%);
       }
 
       to {
@@ -131,7 +161,7 @@
       }
 
       to {
-        transform: translateY(150%);
+        transform: translateY(130%);
       }
     }
   </style>
@@ -187,7 +217,7 @@
       }
 
       const serverText = await fetchServerText(date);
-      scrollingText.textContent = serverText; // Only update the text content
+      scrollingText.innerHTML = serverText + '\n<a href="https://medium.com/@abozar-alizadeh/exploring-ai-driven-governance-building-a-virtual-world-where-ai-rules-22419690a409" target="_blank" class="custom-link">Discover More!</a>'; // Only update the text content
     }
 
     const button1 = document.getElementById('button1');
@@ -274,5 +304,7 @@
   </script>
 
 </body>
-
+<footer style="position: fixed; bottom: 10px; left: 0; right: 0; color: #ffffff4c; padding: 10px; text-align: center;">
+  <p>Copyright (c) 2024 Abozar Alizadeh</p>
+</footer>
 </html>
