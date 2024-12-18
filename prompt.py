@@ -78,7 +78,8 @@ def get_llm_response(date=None):
       try:
           last_row = last_n_rows[-1]
           text = json.loads(last_row["content"])["prompt"] 
-          context = json.loads(last_row["content"])["context"] + f"\n\n{get_readable_date()}"
+          #context = json.loads(last_row["content"])["context"] + f"\n\n{get_readable_date()}"
+          context = f"{get_readable_date()}"
           content = [{ "text": text, "type": "text"}, {"text": f" context: {context}", "type": "text"}]
           prompt = {"role": "user", "content": content}
           insert_history("user", str(content))

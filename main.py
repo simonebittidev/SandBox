@@ -26,7 +26,7 @@ def get_string():
     # Pass the parsed date to the get_llm_response function (if applicable)
     response = get_llm_response(date=parsed_date)
 
-    if parsed_date:
+    if len(response) > 20 & parsed_date:
         cache[str(parsed_date)] = response
 
     return response
