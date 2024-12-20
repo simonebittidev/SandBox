@@ -13,13 +13,13 @@
     .custom-link {
       color: inherit;
       text-decoration: none;
-      font-weight: bold; 
+      font-weight: bold;
       font-style: italic;
       font-family: inherit;
     }
 
     .custom-link:hover {
-      
+
       text-decoration: underline;
     }
 
@@ -71,7 +71,7 @@
 
     #scrollingText {
       display: inline-block;
-      animation: scroll 60s linear infinite;
+      animation: scroll 30s linear infinite;
       white-space: pre-line;
     }
 
@@ -137,17 +137,37 @@
 
     @keyframes scroll {
       from {
-        transform: translateY(130%);
+        transform: translateY(100%);
       }
 
       to {
-        transform: translateY(-110%);
+        transform: translateY(-100%);
       }
     }
 
     @keyframes scrollNone {
       from {
-        transform: translateY(130%);
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(-100%);
+      }
+    }
+
+    @keyframes scrollRev {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(100%);
+      }
+    }
+
+    @keyframes sscroll {
+      from {
+        transform: translateY(75%);
       }
 
       to {
@@ -155,13 +175,31 @@
       }
     }
 
-    @keyframes scrollRev {
+    @keyframes sscrollNone {
+      from {
+        transform: translateY(75%);
+      }
+
+      to {
+        transform: translateY(-110%);
+      }
+    }
+
+    @keyframes sscrollRev {
       from {
         transform: translateY(-110%);
       }
 
       to {
-        transform: translateY(130%);
+        transform: translateY(75%);
+      }
+    }
+
+    @media (max-width: 990px) {
+      #scrollingText {
+        display: inline-block;
+        animation: sscroll 30s linear infinite;
+        white-space: pre-line;
       }
     }
   </style>
@@ -249,30 +287,38 @@
     let clickCount3 = 0;
     let clickCount3_b = 0;
 
+    let scrolla = 'scroll'
+    let scrollRa = 'scrollRev'
+    let scrollNa = 'scrollNone'
+    if (window.innerWidth <= 990) {
+      scrolla = 'sscroll'
+      scrollRa = 'sscrollRev'
+      scrollNa = 'sscrollNone'
+    }
+
     button3.addEventListener('click', () => {
       const audio = new Audio('static/click3.mp3');
       audio.play();
       rotationAngle3 += 90;
       button3.style.transform = `rotate(${rotationAngle3}deg)`;
+      const scrollingText = document.getElementById('scrollingText');
 
       clickCount3++;
 
-      const scrollingText = document.getElementById('scrollingText');
-
       if (clickCount3 % 2 === 1) {
         // Stop scrolling animation
-        scrollingText.style.animation = 'scrollNone 60s linear infinite';
+        scrollingText.style.animation = `${scrollNa} 60s linear infinite`;
         scrollingText.style.animationDelay = '-30s';
         scrollingText.style.animationPlayState = 'paused';
       } else {
         clickCount3_b++;
         if (clickCount3_b % 2 === 1) {
           // Change to a faster scroll animation
-          scrollingText.style.animation = 'scrollRev 60s linear infinite';
+          scrollingText.style.animation = `${scrollRa} 60s linear infinite`;
           scrollingText.style.animationDelay = '-30s'; // Start midway
         } else {
           // Change to a faster scroll animation
-          scrollingText.style.animation = 'scroll 60s linear infinite';
+          scrollingText.style.animation = `${scrolla} 60s linear infinite`;
           scrollingText.style.animationDelay = '-30s'; // Start midway
         }
         scrollingText.style.animationPlayState = 'running';
@@ -307,4 +353,5 @@
 <footer style="position: fixed; bottom: 10px; left: 0; right: 0; color: #ffffff4c; padding: 10px; text-align: center;">
   <p>Copyright (c) 2024 Abozar Alizadeh</p>
 </footer>
+
 </html>
