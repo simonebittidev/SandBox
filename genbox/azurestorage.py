@@ -6,7 +6,7 @@ from utils import get_flat_date
 load_dotenv()
 # Configuration
 connection_string = os.getenv('connection_string')
-table_name = os.getenv('table_name') 
+table_name = os.getenv('genbox_table_name') 
 
 # Create a TableServiceClient
 service_client = TableServiceClient.from_connection_string(conn_str=connection_string)

@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from prompt import get_llm_response
+from genbox.prompt import get_llm_response
 
 app = Flask(__name__)
 
