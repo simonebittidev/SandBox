@@ -4,5 +4,7 @@ python-dotenv
 gunicorn
 azure-data-tables
 langchain
+langchain-openai
 langgraph
 xmltodict
+pydantic

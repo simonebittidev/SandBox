@@ -6,7 +6,7 @@ from utils import get_flat_date, get_readable_date
 
 load_dotenv()
 # Configuration
-API_KEY = os.getenv('API_KEY')
+API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 ENDPOINT = os.getenv('OAIENDPOINT')
 
 def get_llm_response(date=None):
@@ -59,9 +59,8 @@ def get_llm_response(date=None):
             to a sustainable economy. Previous initiatives have raised awareness, but significant changes in industry practices \
             are still needed. Balancing economic growth with environmental priorities remains a key challenge.\
             \"\n}\n\n\n# Notes\n\n- Begin each decision with a clear and focused objective.\n- Ensure each choice considers both \
-            immediate and long-term effects.\n- Maintain continuity and coherence between decisions by using the \"prompt\" and \"context\" fields \
-            effectively.\n- Remember to circle back to previous directives, monitoring their outcomes and making necessary adjustments, \
-            but do not stuck in one direction, every two or three days start a new initiatives and make bold decisions."
+            immediate and long-term effects.\n- Every day, start a new initiative for the following day and prompt the AI to make \
+            bold decisions. Encourage it to explore various directions and consider different aspects and dimensions of governing the world"
           }
         ]
       }

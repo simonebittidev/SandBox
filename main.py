@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, render_template
+from TomorrowNews.prompt import gettomorrownews
 from genbox.prompt import get_llm_response
 
 app = Flask(__name__)
@@ -31,6 +32,10 @@ def get_string():
 
     return response
     #return jsonify({"output": "Hello, this is a string from the backend!"})
+
+@app.route('/tomorrownews', methods=['GET'])
+def tomorrownews():
+    return gettomorrownews()
 
 @app.route('/')
 def home():
