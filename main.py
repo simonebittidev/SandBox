@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, jsonify, request, render_template
 from TomorrowNews.prompt import gettomorrownews
 from genbox.prompt import get_llm_response

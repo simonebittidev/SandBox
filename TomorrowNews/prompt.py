@@ -1,21 +1,27 @@
 from TomorrowNews.graph import news_graph
 
 def gettomorrownews():
-    for event in news_graph.stream({"messages": [("system", "Using today’s actual newspaper as a foundation, \
-                                                  apply reasoning and analysis to predict future events. \
-                                                  Create the next day’s edition of 'Tomorrow News,' \
-                                                  complete with imaginative yet plausible headlines and stories. \
-                                                  Avoid simply continuing or expanding on today’s news—instead, \
-                                                  focus on predicting the next events or surprising developments \
-                                                  that could arise as consequences of current happenings or emerge unexpectedly. \
-                                                  Make it feel like a genuine glimpse into the future!\
-                                                  after finishing this step, create an HTML newspaper style page with different sections\
-                                                  for every news, the two columns at right and left sides, and a wide main column in the midle, \
-                                                  and arrange it in a professional way with good font and sizes like a real paper.\
-                                                  convert the created news to a title and the column, for the main headline,\
-                                                  use image tool and create a photo or image and use the result url in your HTML,\
-                                                  then create the final result that is the newspaper pure HTML without anything extra,\
-                                                  your response will be parsed directly in a browser, so should be rendered correctly as an HTML")]}):
+    for event in news_graph.stream({"messages": [("system", """
+                                                Using today’s current news as inspiration, create an imaginative yet plausible edition of Tomorrow News,
+                                                predicting future events that could arise as a result of current happenings or unexpected developments. The news should be distinct and forward-thinking—don’t just expand on today’s stories, but envision entirely new scenarios or surprising twists based on current trends.
+                                        
+                                                Next, design an HTML page for the newspaper. The layout should resemble a professional newspaper, optimized for both desktop and mobile screens. Ensure that the design includes:
+
+                                                A clear newspaper header with the title Tomorrow News.
+                                                A two-column layout on the left and right sides of the page, with a wide central column for the main content.
+                                                Visually appealing headlines in the central column with a proper headline style, including a large main headline at the top.
+                                                Use the content created before and fill all the columns.
+                                                A well-balanced font selection with readable sizes, appropriate contrast, and a cohesive color scheme.
+                                                A clean, minimalistic border around the entire page for a polished look.
+                                                Each story should be long enough to fill the column space like a real newspaper article—meaning substantial content for each story to resemble actual newspaper columns in length.
+                                                Images for news stories: Use the image tool to create realistic photos that complement the headlines and add them as appropriate (with image URLs integrated into the HTML).
+                                                Be aware that the image tool has content filtering and cannot create any image, try to create images that are not going to filtered.
+                                                The layout should avoid unnecessary gaps and ensure that content is well-aligned and fits seamlessly into the space.
+                                                Prioritize responsive design, so the layout adapts beautifully to both desktop and mobile screens.
+                                                After creating the visual design and content, ensure the HTML is well-structured and ready to be rendered correctly by a browser, making it appear as a genuine newspaper page, with functional columns, images, and headings.
+
+                                                Output: Pure HTML code without anything extra! (not even ```html at start and ``` at the end) that includes all of the above elements in a clean, readable, and responsive format. your response will be parsed directly in a browser, so should be rendered correctly as an HTML
+                                                  """)]}):
         print("event: ", event)
         for value in event.values():
             print("Assistant:", value["messages"][-1].content)
