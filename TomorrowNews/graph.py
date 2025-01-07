@@ -3,7 +3,8 @@ import os
 
 from typing import Annotated
 
-from TomorrowNews.getnews import get_todays_news_feed
+from TomorrowNews.tools.getimage import get_image_by_text
+from TomorrowNews.tools.getnews import get_todays_news_feed
 from langchain_core.messages import BaseMessage
 from typing_extensions import TypedDict
 
@@ -25,7 +26,8 @@ class State(TypedDict):
 graph_builder = StateGraph(State)
 
 newstool = get_todays_news_feed
-tools = [newstool]
+imagetool = get_image_by_text
+tools = [newstool, imagetool]
 
 llm = AzureChatOpenAI(
     azure_deployment="gpt-4o",  # or your deployment

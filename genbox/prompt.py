@@ -8,6 +8,7 @@ load_dotenv()
 # Configuration
 API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 ENDPOINT = os.getenv('OAIENDPOINT')
+HISTORY_LEN = os.getenv('HISTORY_LEN')
 
 def get_llm_response(date=None):
 
@@ -88,7 +89,7 @@ def get_llm_response(date=None):
       response = json.loads(todays_row["content"])
       return f"{response['output']}\n\n{get_readable_date()}"
 
-  last_n_rows = get_last_n_rows(10)
+  last_n_rows = get_last_n_rows(int(HISTORY_LEN))
   last_n_prompts = [
             {"role": "assistant", "content": [{ "text":  json.loads(row["content"])["output"], "type": "text"}]}
             for row in last_n_rows
