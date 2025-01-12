@@ -4,6 +4,8 @@ import os
 from openai import AzureOpenAI
 import json
 
+from TomorrowNews.azurestorage import save_photo_to_blob
+
 client = AzureOpenAI(
     api_version="2024-02-01",
     azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
@@ -20,4 +22,5 @@ def get_image_by_text(text: str) -> str:
     )
 
     image_url = json.loads(result.model_dump_json())['data'][0]['url']
-    return image_url
+    blob_image_url = save_photo_to_blob(image_url)
+    return blob_image_url

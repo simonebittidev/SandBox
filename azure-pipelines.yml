@@ -79,7 +79,7 @@ stages:
             displayName: 'Use Python version'
 
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : genbox'
+            displayName: 'Deploy Azure Web App : SandBoxes'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)

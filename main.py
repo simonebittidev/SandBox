@@ -3,7 +3,7 @@ load_dotenv()
 
 from flask import Flask, jsonify, request, render_template
 from TomorrowNews.prompt import gettomorrownews
-from genbox.prompt import get_llm_response
+from GenBox.prompt import get_llm_response
 
 app = Flask(__name__)
 
@@ -38,7 +38,16 @@ def get_string():
 
 @app.route('/tomorrownews', methods=['GET'])
 def tomorrownews():
-    return gettomorrownews()
+    return render_template('tomorrownews.html')
+
+@app.route('/tomorrownewscontent', methods=['GET'])
+def tomorrownewscontent():
+    referer = request.headers.get('Referer', '')
+    if referer:
+        return gettomorrownews()
+    else:
+        return "404 Not Found", 404
+    
 
 @app.route('/')
 def home():

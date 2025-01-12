@@ -1,4 +1,7 @@
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from io import BytesIO
 from datetime import datetime
+import requests
 
 def get_flat_date(date=None):
     # Get the current date
@@ -7,6 +10,24 @@ def get_flat_date(date=None):
 
     # Format the date as YYYYMMDD
     flat_date = date.strftime('%Y%m%d')
+    return flat_date
+
+def get_flat_date_hour(date=None):
+    # Get the current date
+    if not date:
+        date = datetime.now()
+
+    # Format the date as YYYYMMDD
+    flat_date = date.strftime('%Y%m%d_%H')
+    return flat_date
+
+def get_flat_date_full(date=None):
+    # Get the current date
+    if not date:
+        date = datetime.now()
+
+    # Format the date as YYYYMMDD
+    flat_date = date.strftime('%Y%m%d_%H%M')
     return flat_date
 
 def get_readable_date(date=None):

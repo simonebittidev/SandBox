@@ -1,7 +1,7 @@
 import os, json
 from dotenv import load_dotenv
 import requests
-from genbox.azurestorage import get_last_n_rows, get_row, insert_history
+from GenBox.azurestorage import get_last_n_rows, get_row, insert_history
 from utils import get_flat_date, get_readable_date
 
 load_dotenv()
