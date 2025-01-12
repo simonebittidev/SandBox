@@ -52,7 +52,6 @@ def save_photo_to_blob(photo_url):
 
     return blob_url
 
-
 def insert_history(html_content):
 
     rowkey = get_flat_date_hour()
