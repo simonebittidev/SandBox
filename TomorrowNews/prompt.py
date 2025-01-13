@@ -26,7 +26,8 @@ def gettomorrownews(parsed_date):
                                                 A clean, minimalistic border around the entire page for a polished look.
                                                 Each story should be long enough to fill the column space like a real newspaper article—meaning substantial content for each story to resemble actual newspaper columns in length.
                                                 Images for news stories: Use the image tool to create realistic photos that complement the headlines and add them as appropriate (with image URLs integrated into the HTML).
-                                                Be aware that the image tool has content filtering and cannot create any image, try to create images that are not going to filtered.
+                                                to create the best photo, think as a newspaper photographer and describe the photo with details and tell the tool explicitly to create a realistic photo.
+                                                Be aware that the image tool has content filtering and cannot create any image, try to create images that are not going to filtered, an in case of an error raised by content filtering retry another photo instead of that.
                                                 The layout should avoid unnecessary gaps and ensure that content is well-aligned and fits seamlessly into the space.
                                                 Prioritize responsive design, so the layout adapts beautifully to both desktop and mobile screens.
                                                 After creating the visual design and content, ensure the HTML is well-structured and ready to be rendered correctly by a browser, making it appear as a genuine newspaper page, with functional columns, images, and headings.
