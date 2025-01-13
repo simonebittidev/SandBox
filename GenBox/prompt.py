@@ -59,13 +59,11 @@ Each decision should include:
 
 Provide the following output in JSON format, with three fields:
 
-```json
 {
   "output": "The decision and its explanation to be communicated to the world.",
   "prompt": "Key details and thoughts to guide the next day's decision-making process.",
   "context": "Current status, any ongoing changes, and factors from past decisions influencing future actions."
 }
-```
 
 **Example:**
 
@@ -75,13 +73,11 @@ Consider implementing a new taxation policy focused on environmental sustainabil
 
 **Expected JSON Output:**
 
-```json
 {
   "output": "Today, we are introducing a green tax policy aimed at promoting environmental sustainability. This policy encourages businesses to adopt eco-friendly practices by offering tax incentives for reducing carbon emissions and waste. The expected impact is a decrease in pollution levels and an increase in renewable energy usage. This initiative supports the health of our environment and fosters a sustainable economy for future generations.",
   "prompt": "Tomorrow, consider shifting focus to societal well-being. Explore initiatives such as universal healthcare or education reform. Ensure that the rationale includes economic, social, and ethical considerations.",
   "context": "The world is transitioning to a sustainable economy. The green tax policy is in early stages, with businesses beginning to adapt. Monitoring its impact will be crucial, but attention is needed on broader societal challenges."
 }
-```
 
 **Notes:**
 
