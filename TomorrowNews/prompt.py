@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
 from utils import get_flat_date_hour
@@ -6,15 +6,22 @@ from utils import get_flat_date_hour
 def gettomorrownews(parsed_date):
     flat_date_hour = get_flat_date_hour(parsed_date)
     timestamp = datetime.utcnow()
+    next_day = timestamp + timedelta(days=1)
     if lasthournews := get_row(flat_date_hour):
         return lasthournews["html_content"], lasthournews.metadata["timestamp"]
     flat_date_hour = get_flat_date_hour()
     if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
         return lasthournews["html_content"], lasthournews.metadata["timestamp"] 
     
-    for event in news_graph.stream({"messages": [("system", """
-                                                Using today’s current news as inspiration, create an imaginative yet plausible edition of Tomorrow News,
-                                                predicting future events that could arise as a result of current happenings or unexpected developments. The news should be distinct and forward-thinking—don’t just expand on today’s stories, but envision entirely new scenarios or surprising twists based on current trends.
+    for event in news_graph.stream({"messages": [("system", f"""
+                                                Using today’s ({timestamp.strftime('%Y-%m-%d')}) actual newspaper as a foundation, \
+                                                apply reasoning and analysis to predict future events. \
+                                                Create the next day’s ({next_day.strftime('%Y-%m-%d')}) edition of 'Tomorrow News,' \
+                                                complete with imaginative yet plausible headlines and stories. \
+                                                Avoid simply continuing or expanding on today’s news—instead, \
+                                                focus on predicting the next events or surprising developments \
+                                                that could arise as consequences of current happenings or emerge unexpectedly. \
+                                                Make it feel like a genuine glimpse into the future!\
                                         
                                                 Next, design an HTML page for the newspaper. The layout should resemble a professional newspaper, optimized for both desktop and mobile screens. Ensure that the design includes:
 
