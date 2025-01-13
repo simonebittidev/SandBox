@@ -52,9 +52,7 @@ def save_photo_to_blob(photo_url):
 
     return blob_url
 
-def insert_history(html_content):
-
-    rowkey = get_flat_date_hour()
+def insert_history(rowkey, html_content):
     # Define the entity (row) to insert
     entity = {
         "PartitionKey": "getimagetool",  # Logical grouping for entities

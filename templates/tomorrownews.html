@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="license" content="MIT License">
-    <meta name="copyright" content="Copyright (c) 2024 Abozar Alizadeh">
     <meta name="author" content="Abozar Alizadeh">
     <meta name="description" content="Software using the MIT License.">
     <title>TomorrowNews</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <style>
-        html,
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
-            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -74,13 +70,8 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .scrollable-paragraph {
@@ -91,10 +82,7 @@
             padding-top: 0px;
         }
     </style>
-
 </head>
-<html>
-
 <body>
 
     <!-- Control Line -->
@@ -108,7 +96,7 @@
     <div class="spinner" id="spinner"></div>
 
     <!-- Iframe -->
-    <iframe src="/tomorrownewscontent" name="newspaper" title="Tomorrow News" onload="hideSpinner()"></iframe>
+    <iframe id="newsIframe" title="Tomorrow News"></iframe>
 
     <div class="scrollable-paragraph">
         <p><b>Disclaimer:</b>
@@ -131,65 +119,55 @@
             and for research and experimental exploration of AI-driven predictive content generation.
         </p>
     </div>
+
     <script>
-        // JavaScript to control the date and time
-        let currentDate = new Date();  // Start with the current local time
-        currentDate.setMinutes(0);
-        currentDate.setSeconds(0);
-        currentDate.setMilliseconds(0);
+        let currentDate = new Date();
+        currentDate.setMinutes(0, 0, 0);
 
-        // Function to update the iframe content based on the current date
         function updateIframe() {
-            const formattedDate = currentDate.toLocaleString(); // Format: YYYY-MM-DD HH:mm
-            document.getElementById("currentDate").textContent = formattedDate;
-            const iframe = document.querySelector('iframe');
-            iframe.src = `/tomorrownewscontent?datetime=${encodeURIComponent(formattedDate)}`;
-
-            // Enable/Disable the 'next' button based on the current time
-            const now = new Date();
-            now.setMinutes(0);
-            now.setSeconds(0);
-            now.setMilliseconds(0);
-            if (currentDate >= now) {
-                document.getElementById("nextBtn").disabled = true; // Disable if the time is in the future
-            } else {
-                document.getElementById("nextBtn").disabled = false; // Enable if it's in the present or past
-            }
+            const formattedDate = currentDate.toISOString();
+            fetch(`/tomorrownewscontent?dt=${encodeURIComponent(formattedDate)}`)
+                .then(response => {
+                    const timestamp = response.headers.get('Timestamp');
+                    currentDate = new Date(timestamp);
+                    currentDate.setMinutes(0, 0, 0);
+                    document.getElementById('currentDate').textContent = currentDate.toLocaleString();
+                    return response.text();
+                })
+                .then(htmlContent => {
+                    const iframe = document.getElementById('newsIframe');
+                    iframe.contentWindow.document.open();
+                    iframe.contentWindow.document.write(htmlContent);
+                    iframe.contentWindow.document.close();
+                    setIframeTransparent();
+                    hideSpinner();
+                })
+                .catch(error => console.error('Error fetching content:', error));
         }
 
-        // Handle the previous button
-        document.getElementById("previousBtn").addEventListener("click", function () {
-            currentDate.setHours(currentDate.getHours() - 1); // Go back 1 hour
-            updateIframe();
-        });
-
-        // Handle the next button
-        document.getElementById("nextBtn").addEventListener("click", function () {
-            currentDate.setHours(currentDate.getHours() + 1); // Go forward 1 hour
-            updateIframe();
-        });
-
-        // Function to hide the spinner and show the iframe when loaded
         function hideSpinner() {
             document.getElementById('spinner').style.display = 'none';
-            document.querySelector('iframe').style.display = 'block';
+            document.getElementById('newsIframe').style.display = 'block';
         }
 
         function setIframeTransparent() {
-            const iframe = document.querySelector('iframe');
+            const iframe = document.getElementById('newsIframe');
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-            // Apply the transparent background style to the iframe content
-            iframeDocument.body.style.backgroundColor = "transparent";
-            iframeDocument.documentElement.style.backgroundColor = "transparent";
+            iframeDocument.body.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+            iframeDocument.documentElement.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
         }
 
-        // Call the function when the iframe is loaded
-        document.querySelector('iframe').addEventListener('load', setIframeTransparent);
+        document.getElementById('previousBtn').addEventListener('click', () => {
+            currentDate.setHours(currentDate.getHours() - 1);
+            updateIframe();
+        });
 
-        // Initialize the iframe content
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentDate.setHours(currentDate.getHours() + 1);
+            updateIframe();
+        });
+
         updateIframe();
     </script>
 </body>
-
 </html>

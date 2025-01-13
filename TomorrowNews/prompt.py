@@ -1,11 +1,17 @@
+from datetime import datetime
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
 from utils import get_flat_date_hour
 
-def gettomorrownews():
-    if lasthournews := get_row(get_flat_date_hour()):
-        return lasthournews["html_content"]
-
+def gettomorrownews(parsed_date):
+    flat_date_hour = get_flat_date_hour(parsed_date)
+    timestamp = datetime.utcnow()
+    if lasthournews := get_row(flat_date_hour):
+        return lasthournews["html_content"], lasthournews.metadata["timestamp"]
+    flat_date_hour = get_flat_date_hour()
+    if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
+        return lasthournews["html_content"], lasthournews.metadata["timestamp"] 
+    
     for event in news_graph.stream({"messages": [("system", """
                                                 Using today’s current news as inspiration, create an imaginative yet plausible edition of Tomorrow News,
                                                 predicting future events that could arise as a result of current happenings or unexpected developments. The news should be distinct and forward-thinking—don’t just expand on today’s stories, but envision entirely new scenarios or surprising twists based on current trends.
@@ -31,5 +37,5 @@ def gettomorrownews():
         for value in event.values():
             print("Assistant:", value["messages"][-1].content)
     content = value["messages"][-1].content
-    insert_history(content)
-    return content
+    insert_history(rowkey=flat_date_hour, html_content=content)
+    return content, timestamp

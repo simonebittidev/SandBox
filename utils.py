@@ -15,7 +15,7 @@ def get_flat_date(date=None):
 def get_flat_date_hour(date=None):
     # Get the current date
     if not date:
-        date = datetime.now()
+        date = datetime.utcnow()
 
     # Format the date as YYYYMMDD
     flat_date = date.strftime('%Y%m%d_%H')

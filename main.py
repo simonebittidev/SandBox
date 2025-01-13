@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, make_response, request, render_template
 from TomorrowNews.prompt import gettomorrownews
 from GenBox.prompt import get_llm_response
 
@@ -44,7 +44,19 @@ def tomorrownews():
 def tomorrownewscontent():
     referer = request.headers.get('Referer', '')
     if referer:
-        return gettomorrownews()
+        date_param = request.args.get('dt')
+        if date_param:
+            try:
+                # Parse the date parameter to a Python datetime object
+                from datetime import datetime
+                parsed_date = datetime.fromisoformat(date_param)
+            except:
+                parsed_date = None
+        tomorrownews, datetime = gettomorrownews(parsed_date)
+        # Create a response object and add a custom header
+        response = make_response(tomorrownews)
+        response.headers['Timestamp'] = datetime  # Replace 'Custom-Header' and 'CustomValue' with your desired values
+        return response
     else:
         return "404 Not Found", 404
     
