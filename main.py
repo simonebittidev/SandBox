@@ -44,6 +44,7 @@ def tomorrownews():
 def tomorrownewscontent():
     referer = request.headers.get('Referer', '')
     if referer:
+        parsed_date = None
         date_param = request.args.get('dt')
         if date_param:
             try:
