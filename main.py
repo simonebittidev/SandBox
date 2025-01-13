@@ -63,6 +63,7 @@ def tomorrownewscontent():
     
 
 @app.route('/')
+@app.route('/genbox')
 def home():
     return render_template('tv.html')
 
