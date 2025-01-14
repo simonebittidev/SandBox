@@ -49,7 +49,7 @@ def get_last_n_rows(n=10):
             reverse=False               # Ascending order
         )
 
-        last_n_rows_complete = sorted_entities[:n]
+        last_n_rows_complete = sorted_entities[-n:]
 
         last_n_rows = [
             {key: value for key, value in row.items() if key not in ["PartitionKey", "RowKey"]}
