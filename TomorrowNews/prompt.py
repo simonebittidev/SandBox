@@ -19,10 +19,9 @@ def gettomorrownews(parsed_date):
                                                 Create the next day’s ({next_day.strftime('%Y-%m-%d')}) edition of 'Tomorrow News,' \
                                                 complete with imaginative yet plausible headlines and stories. \
                                                 Avoid simply continuing or expanding on today’s news—instead, \
-                                                focus on predicting the next events or surprising developments \
-                                                that could arise as consequences of current happenings or emerge unexpectedly. \
-                                                Make it feel like a genuine glimpse into the future!\
-                                        
+                                                focus on predicting the next events and news that could arise as consequences of current happenings or emerge unexpectedly. \
+                                                Make it feel like a genuine glimpse into the future of politics, geopolitics, economy, events, and what come next!\
+                                                    
                                                 Next, design an HTML page for the newspaper. The layout should resemble a professional newspaper, optimized for both desktop and mobile screens. Ensure that the design includes:
 
                                                 A clear newspaper header with the title Tomorrow News.
