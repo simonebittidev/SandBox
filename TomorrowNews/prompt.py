@@ -20,7 +20,9 @@ def gettomorrownews(parsed_date):
                                                 complete with imaginative yet plausible headlines and stories. \
                                                 Avoid simply continuing or expanding on today’s news—instead, \
                                                 focus on predicting the next events and news that could arise as consequences of current happenings or emerge unexpectedly. \
-                                                Make it feel like a genuine glimpse into the future of politics, geopolitics, economy, events, and what come next!\
+                                                Make it feel like a genuine glimpse into the future of politics, geopolitics, economy, events, Culture, \
+                                                Environment, Technology, Health, Security, Education, Science, Energy, Trade, Human Rights, Diplomacy, Military, \
+                                                Infrastructure, Agriculture, Transportation, Media, Religion, Demographics, Finance, Law, Tourism, Sports, Migration and what come next!\
                                                     
                                                 Next, design an HTML page for the newspaper. The layout should resemble a professional newspaper, optimized for both desktop and mobile screens. Ensure that the design includes:
 
