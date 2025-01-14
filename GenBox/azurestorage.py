@@ -45,13 +45,15 @@ def get_last_n_rows(n=10):
         # Convert the entities to a sorted list by RowKey (descending order)
         sorted_entities = sorted(
             entities,
-            key=lambda x: x["RowKey"],  # Sort by RowKey
+            key=lambda x: x.metadata["timestamp"],  # Sort by RowKey
             reverse=False               # Ascending order
         )
 
+        last_n_rows_complete = sorted_entities[:n]
+
         last_n_rows = [
             {key: value for key, value in row.items() if key not in ["PartitionKey", "RowKey"]}
-            for row in sorted_entities[:n]
+            for row in last_n_rows_complete
         ]
 
         return last_n_rows
