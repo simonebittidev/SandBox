@@ -57,3 +57,5 @@ graph_builder.add_conditional_edges(
 graph_builder.add_edge("tools", "agent")
 graph_builder.set_entry_point("agent")
 news_graph = graph_builder.compile()
+
+news_graph.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/SingleAgent.png")

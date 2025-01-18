@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
+from TomorrowNews.multiagent import ma_graph
 from utils import get_flat_date_hour
 
 def gettomorrownews(parsed_date):
@@ -48,3 +49,22 @@ def gettomorrownews(parsed_date):
     content = value["messages"][-1].content
     insert_history(rowkey=flat_date_hour, html_content=content)
     return content, timestamp
+
+def gettomorrownews_ma(parsed_date):
+    flat_date_hour = get_flat_date_hour(parsed_date)
+    timestamp = datetime.utcnow()
+    next_day = timestamp + timedelta(days=1)
+    # if lasthournews := get_row(flat_date_hour):
+    #     return lasthournews["html_content"], lasthournews.metadata["timestamp"]
+    flat_date_hour = get_flat_date_hour()
+    # if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
+    #     return lasthournews["html_content"], lasthournews.metadata["timestamp"] 
+    memory = []
+    for event in ma_graph.stream({"messages": [("system", f"""
+                                                ({timestamp.strftime('%Y-%m-%d')})
+                                                  result should be Pure HTML code without anything extra! (not even ```html at start and ``` at the end)""")]}, subgraphs=True):
+        print("event: ", event)
+        memory.append(event)
+    _, result = memory[-2]
+    r = result['html_developer']['messages'][-1].content
+    return r, timestamp
