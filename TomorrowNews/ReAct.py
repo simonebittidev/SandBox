@@ -137,4 +137,4 @@ The final output must be pure HTML!
 
 supervisor = create_react_agent(llm, tools, state_modifier=system_prompt)
 
-supervisor.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/supervisor.png")
+#supervisor.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/supervisor.png")
