@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, jsonify, make_response, request, render_template
-from TomorrowNews.prompt import gettomorrownews, gettomorrownews_ma
+from TomorrowNews.prompt import gettomorrownews
 from GenBox.prompt import get_llm_response
 
 app = Flask(__name__)
