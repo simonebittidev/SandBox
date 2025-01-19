@@ -135,6 +135,6 @@ Your goal: Create a cohesive, compelling edition of "Tomorrow News" that provide
 The final output must be pure HTML!
 """
 
-#supervisor = create_react_agent(llm, [], state_modifier=system_prompt)
+supervisor = create_react_agent(llm, [], state_modifier=system_prompt)
 
 #supervisor.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/supervisor.png")
