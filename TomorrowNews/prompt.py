@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
-from TomorrowNews.ReAct import supervisor
+#from TomorrowNews.ReAct import supervisor
 from utils import get_flat_date_hour
 
 def gettomorrownews(parsed_date):
