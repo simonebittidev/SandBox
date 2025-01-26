@@ -2,15 +2,18 @@ from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
 #from TomorrowNews.ReAct import supervisor
-from utils import get_flat_date_hour
+from utils import get_flat_date, get_flat_date_hour
 
 def gettomorrownews(parsed_date):
-    flat_date_hour = get_flat_date_hour(parsed_date)
+    if parsed_date and parsed_date.date() >= datetime(2025, 1, 27).date():
+        flat_date_hour = get_flat_date(parsed_date) + "_00"
+    else:
+        flat_date_hour = get_flat_date_hour(parsed_date)
     timestamp = datetime.utcnow()
     next_day = timestamp + timedelta(days=1)
     if lasthournews := get_row(flat_date_hour):
         return lasthournews["html_content"], lasthournews.metadata["timestamp"]
-    flat_date_hour = get_flat_date_hour()
+    flat_date_hour = get_flat_date() + "_00"
     if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
         return lasthournews["html_content"], lasthournews.metadata["timestamp"] 
     

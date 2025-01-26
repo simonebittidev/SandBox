@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="license" content="MIT License">
@@ -8,7 +9,8 @@
     <title>TomorrowNews</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -70,8 +72,13 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .scrollable-paragraph {
@@ -83,6 +90,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Control Line -->
@@ -122,7 +130,11 @@
 
     <script>
         let currentDate = new Date();
-        currentDate.setMinutes(0, 0, 0);
+        if (currentDate >= new Date("2025-01-27T00:00:00")) {
+            currentDate.setHours(0, 0, 0, 0);
+        } else {
+            currentDate.setMinutes(0, 0, 0);
+        }
 
         function updateIframe() {
             const formattedDate = currentDate.toISOString();
@@ -130,7 +142,11 @@
                 .then(response => {
                     const timestamp = response.headers.get('Timestamp');
                     currentDate = new Date(timestamp);
-                    currentDate.setMinutes(0, 0, 0);
+                    if (currentDate >= new Date("2025-01-27T00:00:00")) {
+                        currentDate.setHours(0, 0, 0, 0);
+                    } else {
+                        currentDate.setMinutes(0, 0, 0);
+                    }
                     document.getElementById('currentDate').textContent = currentDate.toLocaleString();
                     return response.text();
                 })
@@ -158,16 +174,27 @@
         }
 
         document.getElementById('previousBtn').addEventListener('click', () => {
-            currentDate.setHours(currentDate.getHours() - 1);
+            if (currentDate >= new Date("2025-01-27T00:00:00")) {
+                currentDate.setHours(0, 0, 0, 0);
+                currentDate.setHours(currentDate.getHours() - 24); // Decrease by 24 hours after January 27th
+            } else {
+                currentDate.setHours(currentDate.getHours() - 1); // Decrease by 1 hour before January 27th
+            }
             updateIframe();
         });
 
         document.getElementById('nextBtn').addEventListener('click', () => {
-            currentDate.setHours(currentDate.getHours() + 1);
+            if (currentDate >= new Date("2025-01-27T00:00:00")) {
+                currentDate.setHours(0, 0, 0, 0);
+                currentDate.setHours(currentDate.getHours() + 24); // Increase by 24 hours after January 27th
+            } else {
+                currentDate.setHours(currentDate.getHours() + 1); // Increase by 1 hour before January 27th
+            }
             updateIframe();
         });
 
         updateIframe();
     </script>
 </body>
+
 </html>
