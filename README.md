@@ -5,7 +5,7 @@
 AI-Driven News Prediction and Decision-Making
 TomorrowNews is an experimental open-source project that uses LangChain Agents and Azure OpenAI to generate speculative, AI-driven news predictions based on real-world events. The project aims to simulate decision-making for the future, providing a creative glimpse into what might happen in various sectors, such as politics, economy, society, and the environment.
 
-By feeding real news as input, this project generates predictions and outcomes for the following day, creating speculative headlines and decisions related to global topics.
+By feeding real news as input, this project generates predictions and outcomes for the following day, creating speculative headlines and decisions related to global topics. [Read more](https://ai.gopubby.com/tomorrow-news-how-ai-crafts-futures-headlines-and-stories-8f2b37fd841e)
 
 #### Key Features:
 - **Autonomous AI Predictions**: Uses real-time news data to predict plausible future events.
