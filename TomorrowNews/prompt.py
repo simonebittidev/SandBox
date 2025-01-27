@@ -5,7 +5,7 @@ from TomorrowNews.graph import news_graph
 from utils import get_flat_date, get_flat_date_hour
 
 def gettomorrownews(parsed_date):
-    if parsed_date and parsed_date.date() >= datetime(2025, 1, 27).date():
+    if parsed_date and parsed_date.date() >= datetime(2025, 1, 25).date():
         flat_date_hour = get_flat_date(parsed_date) + "_00"
     else:
         flat_date_hour = get_flat_date_hour(parsed_date)
