@@ -130,7 +130,7 @@
 
     <script>
         let currentDate = new Date();
-        if (currentDate >= new Date("2025-01-25T00:00:00")) {
+        if (currentDate >= new Date("2025-01-27T00:00:00")) {
             currentDate.setHours(0, 0, 0, 0);
         } else {
             currentDate.setMinutes(0, 0, 0);
@@ -142,7 +142,7 @@
                 .then(response => {
                     const timestamp = response.headers.get('Timestamp');
                     currentDate = new Date(timestamp);
-                    if (currentDate >= new Date("2025-01-25T00:00:00")) {
+                    if (currentDate >= new Date("2025-01-27T00:00:00")) {
                         currentDate.setHours(0, 0, 0, 0);
                     } else {
                         currentDate.setMinutes(0, 0, 0);
@@ -174,7 +174,7 @@
         }
 
         document.getElementById('previousBtn').addEventListener('click', () => {
-            if (currentDate >= new Date("2025-01-25T00:00:00")) {
+            if (currentDate >= new Date("2025-01-27T00:00:00")) {
                 currentDate.setHours(0, 0, 0, 0);
                 currentDate.setHours(currentDate.getHours() - 24); // Decrease by 24 hours after January 27th
             } else {
@@ -184,7 +184,7 @@
         });
 
         document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentDate >= new Date("2025-01-25T00:00:00")) {
+            if (currentDate >= new Date("2025-01-27T00:00:00")) {
                 currentDate.setHours(0, 0, 0, 0);
                 currentDate.setHours(currentDate.getHours() + 24); // Increase by 24 hours after January 27th
             } else {
