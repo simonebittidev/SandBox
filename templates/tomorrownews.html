@@ -137,8 +137,10 @@
         }
 
         function updateIframe() {
-            const formattedDate = currentDate.toISOString();
-            fetch(`/tomorrownewscontent?dt=${encodeURIComponent(formattedDate)}`)
+            //const formattedDate = currentDate.toISOString();
+            var tzoffset = (currentDate).getTimezoneOffset() * 60000; //offset in milliseconds
+            var localISOTime = (new Date(currentDate - tzoffset)).toISOString().slice(0, -1);
+            fetch(`/tomorrownewscontent?dt=${encodeURIComponent(localISOTime)}`)
                 .then(response => {
                     const timestamp = response.headers.get('Timestamp');
                     currentDate = new Date(timestamp);
