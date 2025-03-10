@@ -99,7 +99,7 @@ Consider implementing a new taxation policy focused on environmental sustainabil
       date_row = get_row("assistant", get_flat_date(date))
       if date_row:
           print("date row exists")
-          response = json.loads(date_row["content"])
+          response = json.loads(date_row["content"].strip().replace("\n", " "))
           return f"{response['output']}\n\n{get_readable_date(date)}"
       elif get_flat_date(date) != get_flat_date():
           return f"\n\n\n{get_readable_date(date)}"
@@ -109,19 +109,19 @@ Consider implementing a new taxation policy focused on environmental sustainabil
 
   if todays_row:
       print("todays row already exists")
-      response = json.loads(todays_row["content"])
+      response = json.loads(todays_row["content"].strip().replace("\n", " "))
       return f"{response['output']}\n\n{get_readable_date()}"
 
   last_n_rows = get_last_n_rows(int(HISTORY_LEN))
   last_n_prompts = [
-            {"role": "assistant", "content": [{ "text":  json.loads(row["content"])["output"], "type": "text"}]}
+            {"role": "assistant", "content": [{ "text":  json.loads(row["content"].strip().replace("\n", " "))["output"], "type": "text"}]}
             for row in last_n_rows
         ]
 
   if len(last_n_rows):
       try:
           last_row = last_n_rows[-1]
-          text = json.loads(last_row["content"])["prompt"] 
+          text = json.loads(last_row["content"].strip().replace("\n", " "))["prompt"] 
           #context = json.loads(last_row["content"])["context"] + f"\n\n{get_readable_date()}"
           context = f"{get_readable_date()}"
           content = [{ "text": text, "type": "text"}, {"text": f" context: {context}", "type": "text"}]
@@ -148,7 +148,7 @@ Consider implementing a new taxation policy focused on environmental sustainabil
   if response and response.json() and \
     response.json()["choices"][0]["message"]["content"]:
 
-      content = response.json()["choices"][0]["message"]["content"].replace("json\n","")
+      content = response.json()["choices"][0]["message"]["content"].replace("json\n","").strip().replace("\n", " ")
       role = response.json()["choices"][0]["message"]["role"]
 
       insert_history(role, content)
