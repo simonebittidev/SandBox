@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
-#from TomorrowNews.ReAct import supervisor
+from TomorrowNews.ReAct import supervisor
+from TomorrowNews.supervisor import ma_graph
 from utils import get_flat_date, get_flat_date_hour, parse_flat_date_hour
 
 def gettomorrownews(parsed_date):
@@ -55,14 +56,29 @@ def gettomorrownews(parsed_date):
     insert_history(rowkey=flat_date_hour, html_content=content)
     return content, timestamp
 
-# def gettomorrownews_ma(parsed_date):
-#     timestamp = datetime.utcnow()
-#     memory = []
-#     for event in supervisor.stream({"messages": [("system", f"""
-#                                                 ({timestamp.strftime('%Y-%m-%d')})
-#                                                   result should be Pure HTML code without anything extra! (not even ```html at start and ``` at the end)""")]}, subgraphs=True):
-#         print("event: ", event)
-#         memory.append(event)
-#     _, result = memory[-2]
-#     r = result['html_developer']['messages'][-1].content
-#     return r, timestamp
+timestamp = datetime.utcnow()
+next_day = timestamp + timedelta(days=1)
+system_prompt = f"""
+You are the Editor, the central figure in producing the next day's edition of "Tomorrow News" (dated {next_day.strftime('%Y-%m-%d')}), starting from today's newspaper ({timestamp.strftime('%Y-%m-%d')}). 
+Your role involves analyzing current news, predicting future events, and orchestrating the creation of content and design. You will:
+Analyze today’s news (using tool) to forecast future events.
+Delegate tasks to the appropriate agents—Journalist, Photographer, and HTML Developer—ensuring a smooth workflow.
+Review the outputs at each stage to maintain quality and coherence.
+After your analysis:
+Assign the Journalist to create imaginative and plausible headlines and stories.
+Once the stories are ready, pass them to the Photographer to generate realistic images that complement the content.
+Finally, direct the HTML Developer to integrate the content and images into a professional, responsive HTML layout.
+Your goal: Create a cohesive, compelling edition of "Tomorrow News" that provides a realistic glimpse into the future across various domains like politics, economy, and technology.
+The final output must be pure HTML!
+"""
+
+def gettomorrownews_multiagent(parsed_date):
+    timestamp = datetime.utcnow()
+    memory = []
+    for event in ma_graph.stream({"messages": [("system", system_prompt)]}, subgraphs=True):
+        print("event: ", event)
+        memory.append(event)
+        
+    _, result = memory[-1]
+    r = result['editor']['messages'][-1].content
+    return r, timestamp

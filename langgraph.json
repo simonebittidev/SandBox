@@ -1,0 +1,10 @@
+{
+    "graphs": {
+    "my_agent": "./TomorrowNews/supervisor.py:ma_graph",
+    "single_agent": "./TomorrowNews/graph.py:news_graph"
+    },
+    "env": ".env",
+    "dependencies": [
+    "."
+    ]
+}

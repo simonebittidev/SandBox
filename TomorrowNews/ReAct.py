@@ -26,8 +26,8 @@ newstool = get_todays_news_feed
 imagetool = get_image_by_text
 
 llm = AzureChatOpenAI(
-    azure_deployment="gpt-4o",  # or your deployment
-    api_version="2024-02-15-preview",  # or your api version
+    azure_deployment=os.environ["AZURE_OPENAI_MODEL"],  # or your deployment
+    api_version=os.environ["AZURE_OPENAI_API_VERSION"],  # or your api version
     temperature=1,
     max_tokens=None,
     timeout=None,
@@ -135,6 +135,6 @@ Your goal: Create a cohesive, compelling edition of "Tomorrow News" that provide
 The final output must be pure HTML!
 """
 
-supervisor = create_react_agent(llm, [], state_modifier=system_prompt)
+supervisor = create_react_agent(llm, tools=[])
 
 #supervisor.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/supervisor.png")

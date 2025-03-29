@@ -29,9 +29,21 @@ newstool = get_todays_news_feed
 imagetool = get_image_by_text
 tools = [newstool, imagetool]
 
+from langchain_deepseek import ChatDeepSeek
+
+# llm = ChatDeepSeek(
+#     model=os.environ["AZURE_OPENAI_MODEL"],
+#     temperature=0,
+#     max_tokens=None,
+#     timeout=None,
+#     max_retries=2,
+#     api_key=os.environ["AZURE_OPENAI_API_KEY"],
+#     # other params...
+# )
+
 llm = AzureChatOpenAI(
-    azure_deployment="gpt-4o",  # or your deployment
-    api_version="2024-02-15-preview",  # or your api version
+    azure_deployment=os.environ["AZURE_OPENAI_MODEL"],  # or your deployment
+    api_version=os.environ["AZURE_OPENAI_API_VERSION"],  # or your api version
     temperature=1,
     max_tokens=None,
     timeout=None,

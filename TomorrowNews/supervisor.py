@@ -100,17 +100,18 @@ def photographer(
     system_prompt = (
         """
 Role: Expert Newspaper Photographer
-Task: Use the image generation tool to create realistic and visually compelling photos that align with the newspaper headlines.
+Task: Use the image generation tool (get_image_by_text) to create realistic and visually compelling photos that align with the newspaper headlines.
 Instructions:
 Think Like a Newspaper Photographer: Approach each image as if you're capturing a real-world scene for a major publication. Consider the context, mood, and details that would make the photo believable and engaging.
 Provide Detailed Descriptions: Describe each photo thoroughly, including the setting, subjects, emotions, lighting, and any other elements that contribute to the realism and relevance of the image.
 Focus on Realism: Ensure that the images are as realistic as possible. Avoid abstract or overly artistic interpretations unless explicitly required by the headline.
 Content Filtering Awareness: Be mindful of the image tool's content filtering. Aim to create images that are appropriate and unlikely to be filtered. If an image is rejected due to filtering, promptly revise the description and try again to ensure a successful result.
 Iterate as Needed: If content filtering issues arise, adjust the photo description to avoid sensitive or restricted content and retry until an acceptable image is generated.
+Finally when the iterations are over and you have the photos transfer to editor.
         """
     )
     messages = [{"role": "system", "content": system_prompt}] + state["messages"]
-    ai_msg = llm_with_tools.bind_tools([transfer_to_editor]).invoke(messages)
+    ai_msg = llm_with_tools.bind_tools([transfer_to_editor, imagetool]).invoke(messages)
     # If there are tool calls, the LLM needs to hand off to another agent
     if len(ai_msg.tool_calls) > 0:
         tool_call_id = ai_msg.tool_calls[-1]["id"]
@@ -184,7 +185,7 @@ The final output must be pure HTML!
         """
     )
     messages = [{"role": "system", "content": system_prompt}] + state["messages"]
-    ai_msg = llm_with_tools.bind_tools([transfer_to_journalist, transfer_to_photographer, transfer_to_html_developer]).invoke(messages)
+    ai_msg = llm_with_tools.bind_tools([transfer_to_journalist, transfer_to_photographer, transfer_to_html_developer, newstool]).invoke(messages)
     # If there are tool calls, the LLM needs to hand off to another agent
     if len(ai_msg.tool_calls) > 0:
         tool_call_id = ai_msg.tool_calls[-1]["id"]
@@ -214,21 +215,29 @@ graph_builder.add_node("html_developer", html_developer)
 
 graph_builder.add_conditional_edges(
     "editor",
-    tools_condition,
+    tools_condition
 )
 
 graph_builder.add_conditional_edges(
     "photographer",
-    tools_condition,
+    tools_condition
 )
 
-
 graph_builder.add_edge("journalist", "editor")
-graph_builder.add_edge("photographer", "editor")
+#graph_builder.add_edge("photographer", "editor")
 graph_builder.add_edge("html_developer", "editor")
-graph_builder.add_edge("tools", "editor")
+
+def next_condition(state: State)-> Literal["editor", "photographer"]:
+  print(f"state is here: {state["messages"]}")
+  if state["messages"][-1].name == "get_todays_news_feed":
+    return "editor"
+  else:
+    return "photographer"
+
+graph_builder.add_conditional_edges("tools", next_condition)
+
 graph_builder.set_entry_point("editor")
 
 ma_graph = graph_builder.compile()
 
-#ma_graph.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/MultiAgent.png")
+ma_graph.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/NewMultiAgent.png")
