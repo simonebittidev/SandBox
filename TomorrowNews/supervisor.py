@@ -228,7 +228,7 @@ graph_builder.add_edge("journalist", "editor")
 graph_builder.add_edge("html_developer", "editor")
 
 def next_condition(state: State)-> Literal["editor", "photographer"]:
-  print(f"state is here: {state["messages"]}")
+  #print(f"state is here: {state["messages"]}")
   if state["messages"][-1].name == "get_todays_news_feed":
     return "editor"
   else:
