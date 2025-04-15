@@ -240,4 +240,4 @@ graph_builder.set_entry_point("editor")
 
 ma_graph = graph_builder.compile()
 
-ma_graph.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/NewMultiAgent.png")
+#ma_graph.get_graph().draw_mermaid_png(output_file_path="TomorrowNews/NewMultiAgent.png")

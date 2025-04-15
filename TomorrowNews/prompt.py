@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from TomorrowNews.azurestorage import get_row, insert_history
 from TomorrowNews.graph import news_graph
@@ -6,20 +7,23 @@ from TomorrowNews.supervisor import ma_graph
 from utils import get_flat_date, get_flat_date_hour, parse_flat_date_hour
 
 def gettomorrownews(parsed_date):
+    timestamp = datetime.utcnow()
+    next_day = timestamp + timedelta(days=1)
+    
     if parsed_date and parsed_date.date() >= datetime(2025, 1, 25).date():
         flat_date_hour = get_flat_date(parsed_date) + "_00"
     elif parsed_date:
         flat_date_hour = get_flat_date_hour(parsed_date)
     else:
         flat_date_hour = get_flat_date(parsed_date) + "_00"
-    timestamp = datetime.utcnow()
-    next_day = timestamp + timedelta(days=1)
-    if lasthournews := get_row(flat_date_hour):
-        return lasthournews["html_content"], parse_flat_date_hour(flat_date_hour)
-    flat_date_hour = get_flat_date() + "_00"
-    if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
-        return lasthournews["html_content"], parse_flat_date_hour(flat_date_hour)
-    
+
+    if not os.environ.get("DEBUG", False):
+        if lasthournews := get_row(flat_date_hour):
+            return lasthournews["html_content"], parse_flat_date_hour(flat_date_hour)
+        flat_date_hour = get_flat_date() + "_00"
+        if parsed_date is not None and (lasthournews := get_row(flat_date_hour)):
+            return lasthournews["html_content"], parse_flat_date_hour(flat_date_hour)
+        
     for event in news_graph.stream({"messages": [("system", f"""
                                                 Using today’s ({timestamp.strftime('%Y-%m-%d')}) actual newspaper as a foundation, \
                                                 apply reasoning and analysis to predict future events. \
