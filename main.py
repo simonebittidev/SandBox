@@ -84,7 +84,7 @@ def aiblog():
     return render_template('aiblog.html')
 
 @app.route('/aiblogcontent', methods=['GET'])
-def aiblogcontent():
+async def aiblogcontent():
     referer = request.headers.get('Referer', '')
     if referer:
         parsed_date = None
@@ -96,7 +96,7 @@ def aiblogcontent():
                 parsed_date = datetime.fromisoformat(date_param)
             except:
                 parsed_date = None
-        aiblogcontent, datetime = getaiblog(parsed_date)
+        aiblogcontent, datetime = await getaiblog(parsed_date)
         # Create a response object and add a custom header
         response = make_response(aiblogcontent)
         response.headers['Timestamp'] = datetime  # Replace 'Custom-Header' and 'CustomValue' with your desired values
