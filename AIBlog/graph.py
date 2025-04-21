@@ -22,20 +22,22 @@ if "AZURE_OPENAI_API_KEY" not in os.environ:
 if "AZURE_OPENAI_ENDPOINT" not in os.environ:
     raise Exception("No AZURE_OPENAI_ENDPOINT found in environment!")
 
-newstool = get_todays_news_feed
-imagetool = get_image_by_text
-tools = [searchinternettool, imagetool]
-tools += browsewebtools
+async def get_react_agent():
+    newstool = get_todays_news_feed
+    imagetool = get_image_by_text
+    tools = [searchinternettool, imagetool]
+    tools += await get_browsewebtools()
 
-llm = AzureChatOpenAI(
-    azure_deployment=os.environ["AZURE_OPENAI_MODEL"],  # or your deployment
-    api_version=os.environ["AZURE_OPENAI_API_VERSION"],  # or your api version
-    temperature=1,
-    max_tokens=None,
-    timeout=None,
-    max_retries=2,
-    # other params...
-)
+    llm = AzureChatOpenAI(
+        azure_deployment=os.environ["AZURE_OPENAI_MODEL"],  # or your deployment
+        api_version=os.environ["AZURE_OPENAI_API_VERSION"],  # or your api version
+        temperature=1,
+        max_tokens=None,
+        timeout=None,
+        max_retries=2,
+        # other params...
+    )
 
-from langgraph.prebuilt import create_react_agent
-react_agent = create_react_agent(llm, tools=tools)
+    from langgraph.prebuilt import create_react_agent
+    react_agent = create_react_agent(llm, tools=tools)
+    return react_agent

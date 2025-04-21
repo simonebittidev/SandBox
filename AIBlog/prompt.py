@@ -50,6 +50,7 @@ async def getaiblog(parsed_date):
         if parsed_date is not None and (lastdayblog := get_row(flat_date_hour)):
             return lastdayblog["html_content"], parse_flat_date_hour(flat_date_hour)
 
+    react_agent = await get_react_agent()
     async for event in react_agent.astream({"messages": [("system", f"""
         1. Search the internet for the latest news about AI and GenAI advancements.
         2. Navigate to the sites found as a result.
