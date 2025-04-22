@@ -48,8 +48,8 @@ stages:
     
     - script: |
         source antenv/bin/activate
-        playwright install
         playwright install-deps
+        playwright install
       workingDirectory: $(projectRoot)
       displayName: "Install playwright"
       continueOnError: true
