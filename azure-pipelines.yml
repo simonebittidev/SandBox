@@ -47,6 +47,7 @@ stages:
       displayName: "Install requirements"
     
     - script: |
+        source antenv/bin/activate
         playwright install
         playwright install-deps
       workingDirectory: $(projectRoot)
