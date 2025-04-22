@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SandBox.live</title>
+  <title>SandBoxes.live</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <style>
     body {
       margin: 0;
@@ -14,12 +15,21 @@
       overflow-x: hidden;
     }
 
+    h1.title {
+      text-align: center;
+      font-size: 3rem;
+      margin: 30px 0 10px;
+      background: -webkit-linear-gradient(#ffffff, #d1d1d1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 70vh;
       perspective: 1000px;
       overflow: hidden;
       gap: 2rem;
@@ -58,7 +68,32 @@
       text-align: center;
     }
 
+    footer {
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      color: #ffffff4c;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .github-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .github-link a {
+      color: #ffdd00;
+      text-decoration: none;
+    }
+
     @media (max-width: 600px) {
+      h1.title {
+        font-size: 2rem;
+      }
       .container {
         flex-direction: column;
         height: auto;
@@ -70,6 +105,7 @@
   </style>
 </head>
 <body>
+  <h1 class="title">SandBoxes</h1>
   <div class="container" id="cardContainer">
     <div class="card" onclick="location.href='/tomorrownews'">
       <img src="/static/faviconTN.png" alt="Tomorrownews Icon">
@@ -93,5 +129,12 @@
       container.style.transform = `rotateX(${y * 10}deg) rotateY(${x * 10}deg)`;
     });
   </script>
+
+  <footer>
+    <div class="github-link">
+        <a href="https://github.com/abozaralizadeh/SandBox" target="_blank">View this project on GitHub</a>
+      </div>
+    <p>Copyright (c) 2025 Abozar Alizadeh</p>
+  </footer>
 </body>
 </html>
