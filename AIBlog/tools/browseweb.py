@@ -2,13 +2,17 @@ import typing
 import asyncio
 from playwright.async_api import async_playwright, Browser
 from langchain_community.agent_toolkits import PlayWrightBrowserToolkit
+import logging
 # from langchain_community.tools.playwright.utils import (
 #     create_async_playwright_browser,  
 #     create_sync_playwright_browser
 # )
 import subprocess
 
-subprocess.run(["playwright", "install"])
+install = subprocess.run(["playwright", "install"])
+install_deps = subprocess.run(["playwright", "install-deps"])
+logging.info(f"Playwright install result: {install}.")
+logging.info(f"Playwright install-deps result: {install_deps}.")
 
 async def create_async_playwright_browser(
         headless: bool = True, args: typing.Optional[typing.List[str]] = None
