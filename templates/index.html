@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SandBox.live</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2e2e4f);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      perspective: 1000px;
+      overflow: hidden;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .card {
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      transform: scale(1.05) rotateY(10deg);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+
+    .card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+      .card {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="cardContainer">
+    <div class="card" onclick="location.href='/tomorrownews'">
+      <img src="/static/faviconTN.png" alt="Tomorrownews Icon">
+      <p>Tomorrow News</p>
+    </div>
+    <div class="card" onclick="location.href='/genbox'">
+      <img src="/static/faviconGB.png" alt="GenBox Icon">
+      <p>GenBox</p>
+    </div>
+    <div class="card" onclick="location.href='/aiblog'">
+      <img src="/static/faviconAB.png" alt="AI Blog Icon">
+      <p>AI Blog</p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('cardContainer');
+    document.addEventListener('mousemove', e => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      container.style.transform = `rotateX(${y * 10}deg) rotateY(${x * 10}deg)`;
+    });
+  </script>
+</body>
+</html>

@@ -104,10 +104,13 @@ async def aiblogcontent():
     else:
         return "404 Not Found", 404
 
-@app.route('/')
 @app.route('/genbox')
-def home():
+def genbox():
     return render_template('tv.html')
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
