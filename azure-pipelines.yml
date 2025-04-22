@@ -45,6 +45,13 @@ stages:
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
+    
+    - script: |
+        playwright install
+        playwright install-deps
+      workingDirectory: $(projectRoot)
+      displayName: "Install playwright"
+      continueOnError: true
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
