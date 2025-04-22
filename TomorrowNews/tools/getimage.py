@@ -17,7 +17,7 @@ def get_image_by_text(text: str) -> str:
     """get the url of an image created as the input text explains, the input text should describe well the expected output"""
     result = client.images.generate(
         model="dall-e-3", # the name of your DALL-E 3 deployment
-        prompt=text,
+        prompt=text + " (super realistic & high quality)",
         n=1
     )
 

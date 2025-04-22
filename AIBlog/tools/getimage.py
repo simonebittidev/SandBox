@@ -4,7 +4,7 @@ import os
 from openai import AzureOpenAI
 import json
 
-from TomorrowNews.azurestorage import save_photo_to_blob
+from AIBlog.azurestorage import save_photo_to_blob
 
 client = AzureOpenAI(
     api_version="2024-02-01",
